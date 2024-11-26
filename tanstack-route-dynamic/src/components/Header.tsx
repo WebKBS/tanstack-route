@@ -6,6 +6,7 @@ const Header = () => {
       <h1>Tanstack Route</h1>
       <div className="navigation">
         <Link to="/">Home</Link>
+        <Link to="/posts">Posts</Link>
       </div>
     </header>
   );
