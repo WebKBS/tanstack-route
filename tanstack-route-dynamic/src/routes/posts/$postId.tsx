@@ -8,5 +8,5 @@ function RouteComponent() {
   const { postId } = Route.useParams();
   // const { postId } = useParams({ strict: false });
 
-  return `Hello /posts/${postId}`;
+  return <h1>`Hello /posts/{postId}`</h1>;
 }
