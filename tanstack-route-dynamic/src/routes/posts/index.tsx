@@ -19,10 +19,10 @@ function RouteComponent() {
       >
         <button
           onClick={() => {
-            navigate(-1);
+            navigate({ to: '/posts/$postId', params: { postId: '1' } });
           }}
         >
-          Back
+          Post 1
         </button>
         {/* <Link> 컴포넌트를 사용하여 다른 경로로 이동할 수 있습니다. */}
         <Link to="/posts/$postId" params={{ postId: '1' }}>
