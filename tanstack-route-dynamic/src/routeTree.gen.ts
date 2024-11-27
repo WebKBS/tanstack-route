@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as PostsIndexImport } from './routes/posts/index'
 import { Route as PostsPostIdImport } from './routes/posts/$postId'
+import { Route as NewsNewsIdIndexImport } from './routes/news/$newsId/index'
 
 // Create/Update Routes
 
@@ -32,6 +33,12 @@ const PostsIndexRoute = PostsIndexImport.update({
 const PostsPostIdRoute = PostsPostIdImport.update({
   id: '/posts/$postId',
   path: '/posts/$postId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const NewsNewsIdIndexRoute = NewsNewsIdIndexImport.update({
+  id: '/news/$newsId/',
+  path: '/news/$newsId/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -60,6 +67,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsIndexImport
       parentRoute: typeof rootRoute
     }
+    '/news/$newsId/': {
+      id: '/news/$newsId/'
+      path: '/news/$newsId'
+      fullPath: '/news/$newsId'
+      preLoaderRoute: typeof NewsNewsIdIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -69,12 +83,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/posts': typeof PostsIndexRoute
+  '/news/$newsId': typeof NewsNewsIdIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/posts': typeof PostsIndexRoute
+  '/news/$newsId': typeof NewsNewsIdIndexRoute
 }
 
 export interface FileRoutesById {
@@ -82,14 +98,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/posts/': typeof PostsIndexRoute
+  '/news/$newsId/': typeof NewsNewsIdIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/posts/$postId' | '/posts'
+  fullPaths: '/' | '/posts/$postId' | '/posts' | '/news/$newsId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/posts/$postId' | '/posts'
-  id: '__root__' | '/' | '/posts/$postId' | '/posts/'
+  to: '/' | '/posts/$postId' | '/posts' | '/news/$newsId'
+  id: '__root__' | '/' | '/posts/$postId' | '/posts/' | '/news/$newsId/'
   fileRoutesById: FileRoutesById
 }
 
@@ -97,12 +114,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PostsPostIdRoute: typeof PostsPostIdRoute
   PostsIndexRoute: typeof PostsIndexRoute
+  NewsNewsIdIndexRoute: typeof NewsNewsIdIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PostsPostIdRoute: PostsPostIdRoute,
   PostsIndexRoute: PostsIndexRoute,
+  NewsNewsIdIndexRoute: NewsNewsIdIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -117,7 +136,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/posts/$postId",
-        "/posts/"
+        "/posts/",
+        "/news/$newsId/"
       ]
     },
     "/": {
@@ -128,6 +148,9 @@ export const routeTree = rootRoute
     },
     "/posts/": {
       "filePath": "posts/index.tsx"
+    },
+    "/news/$newsId/": {
+      "filePath": "news/$newsId/index.tsx"
     }
   }
 }
