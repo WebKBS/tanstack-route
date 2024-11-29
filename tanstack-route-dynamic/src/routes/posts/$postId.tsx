@@ -2,7 +2,12 @@ import { createFileRoute } from '@tanstack/react-router';
 import { getPost } from '../../services/api';
 
 export const Route = createFileRoute('/posts/$postId')({
-  loader: async ({ params }) => await getPost(+params.postId),
+  loader: async ({ params }) => {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    return await getPost(+params.postId);
+  },
+  pendingComponent: () => <div>Loading...</div>,
+  pendingMs: 500,
   component: RouteComponent,
 });
 
