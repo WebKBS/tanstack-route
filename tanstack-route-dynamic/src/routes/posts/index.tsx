@@ -4,6 +4,8 @@ import { getPosts } from '../../services/api';
 
 export const Route = createFileRoute('/posts/')({
   loader: async () => await getPosts(),
+  pendingComponent: () => <div>Loading...</div>,
+  pendingMs: 500,
   component: RouteComponent,
 });
 
